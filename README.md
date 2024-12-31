@@ -1,20 +1,20 @@
 # go-workwx (v2)
 
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/xen0n/go-workwx)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/xen0n/go-workwx)
-![GitHub Workflow Status (develop branch)](https://img.shields.io/github/actions/workflow/status/xen0n/go-workwx/go.yml?branch=develop)
-[![GitHub license info](https://img.shields.io/github/license/xen0n/go-workwx)](./LICENSE)
-[![Go Report Card](https://goreportcard.com/badge/github.com/xen0n/go-workwx)](https://goreportcard.com/report/github.com/xen0n/go-workwx)
-[![Go Reference](https://pkg.go.dev/badge/github.com/xen0n/go-workwx.svg)](https://pkg.go.dev/github.com/xen0n/go-workwx)
-![GitHub Repo stars](https://img.shields.io/github/stars/xen0n/go-workwx?style=social)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/jmek087/go-workwx-client)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/jmek087/go-workwx-client)
+![GitHub Workflow Status (develop branch)](https://img.shields.io/github/actions/workflow/status/jmek087/go-workwx-client/go.yml?branch=develop)
+[![GitHub license info](https://img.shields.io/github/license/jmek087/go-workwx-client)](./LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jmek087/go-workwx-client)](https://goreportcard.com/report/github.com/jmek087/go-workwx-client)
+[![Go Reference](https://pkg.go.dev/badge/github.com/jmek087/go-workwx-client.svg)](https://pkg.go.dev/github.com/jmek087/go-workwx-client)
+![GitHub Repo stars](https://img.shields.io/github/stars/jmek087/go-workwx-client?style=social)
 
 [**本项目需要您的帮助！**][maintainer-needed]
 
-[maintainer-needed]: https://github.com/xen0n/go-workwx/issues/73
+[maintainer-needed]: https://github.com/jmek087/go-workwx-client/issues/73
 
 ```go
 import (
-    "github.com/xen0n/go-workwx/v2" // package workwx
+    "github.com/jmek087/go-workwx-client/v2" // package workwx
 )
 ```
 
@@ -34,7 +34,7 @@ in at least 2 of Qiniu's internal systems.
 > [!WARNING]
 > 本库的 v2 版本仍可能发生不兼容的 API 变更，如字段名、方法名调整等等，请注意。在我们处理完成所有已知的边边角角之前，不会有 v2 版本的 tag。
 >
-> 如果您依赖本库，请在 [v2 版本的跟踪工单](https://github.com/xen0n/go-workwx/issues/162)回复或作出表情反应，以表明态度！作者现在完全以业余时间维护本项目了，非常需要您的反馈。
+> 如果您依赖本库，请在 [v2 版本的跟踪工单](https://github.com/jmek087/go-workwx-client/issues/162)回复或作出表情反应，以表明态度！作者现在完全以业余时间维护本项目了，非常需要您的反馈。
 
 ## Why another wheel?
 
@@ -312,4 +312,4 @@ Markdown 等类型消息目前不支持作为保密消息发送，强行发送�
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/xen0n/go-workwx.svg)](https://starchart.cc/xen0n/go-workwx)
+[![Stargazers over time](https://starchart.cc/jmek087/go-workwx-client.svg)](https://starchart.cc/jmek087/go-workwx-client)

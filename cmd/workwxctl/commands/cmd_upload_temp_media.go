@@ -6,7 +6,7 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/xen0n/go-workwx/v2"
+	"github.com/jmek087/go-workwx-client/v2"
 )
 
 func cmdUploadTempMedia(c *cli.Context) error {

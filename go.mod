@@ -1,4 +1,4 @@
-module github.com/xen0n/go-workwx/v2
+module github.com/jmek087/go-workwx-client/v2
 
 go 1.21
 toolchain go1.23.4
