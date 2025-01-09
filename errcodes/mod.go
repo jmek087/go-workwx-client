@@ -5,7 +5,7 @@ package errcodes
 // ErrCode 错误码类型
 //
 // 全局错误码文档: https://developer.work.weixin.qq.com/document/path/90313
-// 文档爬取时间: 2024-12-19 15:43:50 +0800
+// 文档爬取时间: 2025-01-09 17:01:10 +0800
 //
 // NOTE: 关于错误码的名字为何如此无聊:
 //
@@ -1132,6 +1132,16 @@ const ErrCode41102 ErrCode = 41102
 //
 // 排查方法: -
 const ErrCode41200 ErrCode = 41200
+
+// ErrCode41201 无效的获客助手会话信息chatkey
+//
+// 排查方法: -
+const ErrCode41201 ErrCode = 41201
+
+// ErrCode41202 商品图册数量超过上限
+//
+// 排查方法: -
+const ErrCode41202 ErrCode = 41202
 
 // ErrCode42001 access_token已过期
 //
@@ -5156,6 +5166,11 @@ const ErrCode400302 ErrCode = 400302
 // 排查方法: 可以联系企业管理员在腾讯会议管理端为用户配置创建会议的权限
 const ErrCode400303 ErrCode = 400303
 
+// ErrCode400304 用户没有操作权限
+//
+// 排查方法: 确认用户是否已经激活且使用过日历
+const ErrCode400304 ErrCode = 400304
+
 // ErrCode511020 问题重复
 //
 // 排查方法: -
@@ -7905,3 +7920,8 @@ const ErrCode2400007 ErrCode = 2400007
 //
 // 排查方法: -
 const ErrCode2400008 ErrCode = 2400008
+
+// ErrCode2543337 数据加载中，请稍后重试
+//
+// 排查方法: -
+const ErrCode2543337 ErrCode = 2543337

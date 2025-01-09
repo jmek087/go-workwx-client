@@ -17,7 +17,9 @@ type UserDetail struct {
 	Alias          string   `json:"alias"`
 	Status         int      `json:"status"`
 	QRCodeURL      string   `json:"qr_code"`
+	MainDepartment int64    `json:"main_department"`
 	// TODO: extattr external_profile external_position
+
 }
 
 // GetUser 读取成员

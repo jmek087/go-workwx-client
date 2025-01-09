@@ -66,18 +66,19 @@ func (x UserDetail) intoUserInfo() (UserInfo, error) {
 	}
 
 	return UserInfo{
-		UserID:      x.UserID,
-		Name:        x.Name,
-		Position:    x.Position,
-		Departments: deptInfo,
-		Mobile:      x.Mobile,
-		Gender:      gender,
-		Email:       x.Email,
-		AvatarURL:   x.AvatarURL,
-		Telephone:   x.Telephone,
-		IsEnabled:   x.IsEnabled != 0,
-		Alias:       x.Alias,
-		Status:      UserStatus(x.Status),
-		QRCodeURL:   x.QRCodeURL,
+		UserID:         x.UserID,
+		Name:           x.Name,
+		Position:       x.Position,
+		Departments:    deptInfo,
+		Mobile:         x.Mobile,
+		Gender:         gender,
+		Email:          x.Email,
+		AvatarURL:      x.AvatarURL,
+		Telephone:      x.Telephone,
+		IsEnabled:      x.IsEnabled != 0,
+		Alias:          x.Alias,
+		Status:         UserStatus(x.Status),
+		QRCodeURL:      x.QRCodeURL,
+		MainDepartment: x.MainDepartment,
 	}, nil
 }

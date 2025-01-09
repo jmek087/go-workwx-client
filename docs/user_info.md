@@ -20,6 +20,7 @@ Name|Type|Doc
 `ExtAttr`|TODO|扩展属性，第三方仅通讯录应用可获取
 `Status`|`UserStatus`|成员激活状态
 `QRCodeURL`|`string`|员工个人二维码；第三方仅通讯录应用可获取<br />扫描可添加为外部联系人
+`MainDepartment`|`int64`|主部门，仅当应用对主部门有查看权限时返回
 `ExternalProfile`|TODO|成员对外属性，字段详情见对外属性；第三方仅通讯录应用可获取
 `ExternalPosition`|TODO|对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。
 
