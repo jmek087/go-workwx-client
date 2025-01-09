@@ -38,6 +38,8 @@ type UserInfo struct {
 	QRCodeURL string
 	// MainDepartment 主部门，仅当应用对主部门有查看权限时返回
 	MainDepartment int64
+	// DirectLeader 直属上级UserID，返回在应用可见范围内的直属上级列表，最多有1个直属上级
+	DirectLeader []string
 }
 
 // UserGender 用户性别

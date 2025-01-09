@@ -18,6 +18,7 @@ type UserDetail struct {
 	Status         int      `json:"status"`
 	QRCodeURL      string   `json:"qr_code"`
 	MainDepartment int64    `json:"main_department"`
+	DirectLeader   []string `json:"direct_leader"`
 	// TODO: extattr external_profile external_position
 
 }

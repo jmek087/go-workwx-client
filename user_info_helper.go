@@ -80,5 +80,6 @@ func (x UserDetail) intoUserInfo() (UserInfo, error) {
 		Status:         UserStatus(x.Status),
 		QRCodeURL:      x.QRCodeURL,
 		MainDepartment: x.MainDepartment,
+		DirectLeader:   x.DirectLeader,
 	}, nil
 }
