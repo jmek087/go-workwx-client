@@ -1031,7 +1031,7 @@ type respOAApplyEvent struct {
 type reqOAGetApprovalInfo struct {
 	StartTime string                 `json:"starttime"`
 	EndTime   string                 `json:"endtime"`
-	Cursor    int                    `json:"cursor"`
+	NewCursor string                 `json:"new_cursor"`
 	Size      uint32                 `json:"size"`
 	Filters   []OAApprovalInfoFilter `json:"filters"`
 }
@@ -1046,6 +1046,8 @@ type respOAGetApprovalInfo struct {
 	respCommon
 	// SpNoList 审批单号列表，包含满足条件的审批申请
 	SpNoList []string `json:"sp_no_list"`
+	// NewNextCursor 下次拉取数据的游标，当返回结果中的new_next_cursor为空时，表示没有下一页数据
+	NewNextCursor string `json:"new_next_cursor"`
 }
 
 type reqOAGetApprovalDetail struct {

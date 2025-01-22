@@ -28,18 +28,21 @@ func (c *WorkwxApp) ApplyOAEvent(applyInfo OAApplyEvent) (string, error) {
 }
 
 // GetOAApprovalInfo 批量获取审批单号
-func (c *WorkwxApp) GetOAApprovalInfo(req GetOAApprovalInfoReq) ([]string, error) {
+func (c *WorkwxApp) GetOAApprovalInfo(req GetOAApprovalInfoReq) (*OAApprovalInfoResp, error) {
 	resp, err := c.execOAGetApprovalInfo(reqOAGetApprovalInfo{
 		StartTime: strconv.FormatInt(req.StartTime.Unix(), 10),
 		EndTime:   strconv.FormatInt(req.EndTime.Unix(), 10),
-		Cursor:    req.Cursor,
+		NewCursor: req.NewCursor,
 		Size:      req.Size,
 		Filters:   req.Filters,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return resp.SpNoList, nil
+	return &OAApprovalInfoResp{
+		SpNoList:      resp.SpNoList,
+		NewNextCursor: resp.NewNextCursor,
+	}, nil
 }
 
 // GetOAApprovalDetail 提交审批申请
@@ -84,11 +87,17 @@ type GetOAApprovalInfoReq struct {
 	// EndTime 审批单提交的时间范围，结束时间，Unix时间戳
 	EndTime time.Time
 	// Cursor 分页查询游标，默认为0，后续使用返回的next_cursor进行分页拉取
-	Cursor int
+	NewCursor string
 	// Size 一次请求拉取审批单数量，默认值为100，上限值为100
 	Size uint32
 	// Filters 筛选条件，可对批量拉取的审批申请设置约束条件，支持设置多个条件
 	Filters []OAApprovalInfoFilter
+}
+
+// OAApprovalInfoResp 响应结果
+type OAApprovalInfoResp struct {
+	SpNoList      []string `json:"sp_no_list"`
+	NewNextCursor string   `json:"new_next_cursor"`
 }
 
 // OAApprovalInfo 审批申请状态变化回调通知

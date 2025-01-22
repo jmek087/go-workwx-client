@@ -124,6 +124,10 @@ func (e *goEmitter) emitModelField(x *apiModelField) error {
 			} else {
 				e.e(" ")
 			}
+			// 添加 omitempty 标签
+			if k == "json" {
+				v = strings.TrimSuffix(v, "\"") + "," + "omitempty"
+			}
 
 			e.e("%s:\"%s\"", k, v)
 		}

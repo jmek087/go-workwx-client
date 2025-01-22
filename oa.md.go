@@ -5,177 +5,177 @@ package workwx
 // OAApplyEvent 提交审批申请
 type OAApplyEvent struct {
 	// CreatorUserID 申请人userid，此审批申请将以此员工身份提交，申请人需在应用可见范围内
-	CreatorUserID string `json:"creator_userid"`
+	CreatorUserID string `json:"creator_userid,omitempty"`
 	// TemplateID 模板id。可在“获取审批申请详情”、“审批状态变化回调通知”中获得，也可在审批模板的模板编辑页面链接中获得。暂不支持通过接口提交[打卡补卡][调班]模板审批单。
-	TemplateID string `json:"template_id"`
+	TemplateID string `json:"template_id,omitempty"`
 	// UseTemplateApprover 审批人模式：0-通过接口指定审批人、抄送人（此时approver、notifyer等参数可用）; 1-使用此模板在管理后台设置的审批流程，支持条件审批。默认为0
-	UseTemplateApprover uint8 `json:"use_template_approver"`
+	UseTemplateApprover uint8 `json:"use_template_approver,omitempty"`
 	// Approver 审批流程信息，用于指定审批申请的审批流程，支持单人审批、多人会签、多人或签，可能有多个审批节点，仅use_template_approver为0时生效。
-	Approver []OAApprover `json:"approver"`
+	Approver []OAApprover `json:"approver,omitempty"`
 	// Notifier 抄送人节点userid列表，仅use_template_approver为0时生效。
-	Notifier []string `json:"notifyer"`
+	Notifier []string `json:"notifyer,omitempty"`
 	// NotifyType 抄送方式：1-提单时抄送（默认值）； 2-单据通过后抄送；3-提单和单据通过后抄送。仅use_template_approver为0时生效。
-	NotifyType *uint8 `json:"notify_type"`
+	NotifyType *uint8 `json:"notify_type,omitempty"`
 	// ApplyData 审批申请数据，可定义审批申请中各个控件的值，其中必填项必须有值，选填项可为空，数据结构同“获取审批申请详情”接口返回值中同名参数“apply_data”
-	ApplyData OAContents `json:"apply_data"`
+	ApplyData OAContents `json:"apply_data,omitempty"`
 	// SummaryList 摘要信息，用于显示在审批通知卡片、审批列表的摘要信息，最多3行
-	SummaryList []OASummaryList `json:"summary_list"`
+	SummaryList []OASummaryList `json:"summary_list,omitempty"`
 }
 
 // OAApprover 审批流程信息
 type OAApprover struct {
 	// Attr 节点审批方式：1-或签；2-会签，仅在节点为多人审批时有效
-	Attr uint8 `json:"attr"`
+	Attr uint8 `json:"attr,omitempty"`
 	// UserID 审批节点审批人userid列表，若为多人会签、多人或签，需填写每个人的userid
-	UserID []string `json:"userid"`
+	UserID []string `json:"userid,omitempty"`
 }
 
 // OAContent 审批申请详情，由多个表单控件及其内容组成，其中包含需要对控件赋值的信息
 type OAContent struct {
 	// Control 控件类型：Text-文本；Textarea-多行文本；Number-数字；Money-金额；Date-日期/日期+时间；Selector-单选/多选；；Contact-成员/部门；Tips-说明文字；File-附件；Table-明细；
-	Control OAControl `json:"control"`
+	Control OAControl `json:"control,omitempty"`
 	// ID 控件id：控件的唯一id，可通过“获取审批模板详情”接口获取
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// Title 控件名称 ，若配置了多语言则会包含中英文的控件名称
-	Title []OAText `json:"title"`
+	Title []OAText `json:"title,omitempty"`
 	// Value 控件值 ，需在此为申请人在各个控件中填写内容不同控件有不同的赋值参数，具体说明详见附录。模板配置的控件属性为必填时，对应value值需要有值。
-	Value OAContentValue `json:"value"`
+	Value OAContentValue `json:"value,omitempty"`
 }
 
 // OAContents 审批申请详情，由多个表单控件及其内容组成，其中包含需要对控件赋值的信息
 type OAContents struct {
 	// Contents 审批申请详情，由多个表单控件及其内容组成，其中包含需要对控件赋值的信息
-	Contents []OAContent `json:"contents"`
+	Contents []OAContent `json:"contents,omitempty"`
 }
 
 // OAText 通用文本信息
 type OAText struct {
 	// Text 文字
-	Text string `json:"text"`
+	Text string `json:"text,omitempty"`
 	// Lang 语言
-	Lang string `json:"lang"`
+	Lang string `json:"lang,omitempty"`
 }
 
 // OASummaryList 摘要行信息，用于定义某一行摘要显示的内容
 type OASummaryList struct {
 	// SummaryInfo 摘要行信息，用于定义某一行摘要显示的内容
-	SummaryInfo []OAText `json:"summary_info"`
+	SummaryInfo []OAText `json:"summary_info,omitempty"`
 }
 
 // OAContentValue 控件值 ，需在此为申请人在各个控件中填写内容不同控件有不同的赋值参数，具体说明详见附录。模板配置的控件属性为必填时，对应value值需要有值。
 type OAContentValue struct {
 	// Text 文本/多行文本控件（control参数为Text或Textarea）
-	Text string `json:"text"`
+	Text string `json:"text,omitempty"`
 	// Number 数字控件（control参数为Number）
-	Number string `json:"new_number"`
+	Number string `json:"new_number,omitempty"`
 	// Money 金额控件（control参数为Money）
-	Money string `json:"new_money"`
+	Money string `json:"new_money,omitempty"`
 	// Date 日期/日期+时间控件（control参数为Date）
-	Date OAContentDate `json:"date"`
+	Date OAContentDate `json:"date,omitempty"`
 	// Selector 单选/多选控件（control参数为Selector）
-	Selector OAContentSelector `json:"selector"`
+	Selector OAContentSelector `json:"selector,omitempty"`
 	// Members 成员控件（control参数为Contact，且value参数为members）
-	Members []OAContentMember `json:"members"`
+	Members []OAContentMember `json:"members,omitempty"`
 	// Departments 部门控件（control参数为Contact，且value参数为departments）
-	Departments []OAContentDepartment `json:"departments"`
+	Departments []OAContentDepartment `json:"departments,omitempty"`
 	// Tips 说明文字控件（control参数为Tips）
-	Tips OATemplateControlConfigTips `json:"new_tips"`
+	Tips OATemplateControlConfigTips `json:"new_tips,omitempty"`
 	// Files 附件控件（control参数为File，且value参数为files）
-	Files []OAContentFile `json:"files"`
+	Files []OAContentFile `json:"files,omitempty"`
 	// Table 明细控件（control参数为Table）
-	Table []OAContentTableList `json:"children"`
+	Table []OAContentTableList `json:"children,omitempty"`
 	// Vacation 假勤组件-请假组件（control参数为Vacation）
-	Vacation OAContentVacation `json:"vacation"`
+	Vacation OAContentVacation `json:"vacation,omitempty"`
 	// Attendance 假勤组件-出差/外出/加班组件（control参数为Attendance）
-	Attendance OAContentVacationAttendance `json:"attendance"`
+	Attendance OAContentVacationAttendance `json:"attendance,omitempty"`
 	// PunchCorrection 假勤组件-出差/外出/加班组件（control参数为Attendance）
-	PunchCorrection OAContentPunchCorrection `json:"punch_correction"`
+	PunchCorrection OAContentPunchCorrection `json:"punch_correction,omitempty"`
 	// Location 位置控件（control参数为Location，且value参数为location）
-	Location OAContentLocation `json:"location"`
+	Location OAContentLocation `json:"location,omitempty"`
 	// RelatedApproval 关联审批单控件（control参数为RelatedApproval，且value参数为related_approval）
-	RelatedApproval []OAContentRelatedApproval `json:"related_approval"`
+	RelatedApproval []OAContentRelatedApproval `json:"related_approval,omitempty"`
 	// Formula 公式控件（control参数为Formula，且value参数为formula）
-	Formula OAContentFormula `json:"formula"`
+	Formula OAContentFormula `json:"formula,omitempty"`
 	// DateRange 时长组件（control参数为DateRange，且value参数为date_range）
-	DateRange OAContentDateRange `json:"date_range"`
+	DateRange OAContentDateRange `json:"date_range,omitempty"`
 	// BankAccount 收款账户控件（control参数为BankAccount）
-	BankAccount OAContentBankAccount `json:"bank_account"`
+	BankAccount OAContentBankAccount `json:"bank_account,omitempty"`
 }
 
 // OAContentDate 日期/日期+时间内容
 type OAContentDate struct {
 	// Type 时间展示类型：day-日期；hour-日期+时间 ，和对应模板控件属性一致
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 	// Timestamp 时间戳-字符串类型，在此填写日期/日期+时间控件的选择值，以此为准
-	Timestamp string `json:"s_timestamp"`
+	Timestamp string `json:"s_timestamp,omitempty"`
 }
 
 // OAContentSelector 类型标志，单选/多选控件的config中会包含此参数
 type OAContentSelector struct {
 	// Type 选择方式：single-单选；multi-多选
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 	// Options 多选选项，多选属性的选择控件允许输入多个
-	Options []OAContentSelectorOption `json:"options"`
+	Options []OAContentSelectorOption `json:"options,omitempty"`
 }
 
 // OAContentSelectorOption 多选选项，多选属性的选择控件允许输入多个
 type OAContentSelectorOption struct {
 	// Key 选项key，可通过“获取审批模板详情”接口获得
-	Key string `json:"key"`
+	Key string `json:"key,omitempty"`
 	// Value 选项值，若配置了多语言则会包含中英文的选项值
-	Value []OAText `json:"value"`
+	Value []OAText `json:"value,omitempty"`
 }
 
 // OAContentMember 所选成员内容，即申请人在此控件选择的成员，多选模式下可以有多个
 type OAContentMember struct {
 	// UserID 所选成员的userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid,omitempty"`
 	// Name 成员名
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }
 
 // OAContentDepartment 所选部门内容，即申请人在此控件选择的部门，多选模式下可能有多个
 type OAContentDepartment struct {
 	// OpenAPIID 所选部门id
-	OpenAPIID string `json:"openapi_id"`
+	OpenAPIID string `json:"openapi_id,omitempty"`
 	// Name 所选部门名
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }
 
 // OAContentFile 附件
 type OAContentFile struct {
 	// FileID 文件id，该id为临时素材上传接口返回的的media_id，注：提单后将作为单据内容转换为长期文件存储；目前一个审批申请单，全局仅支持上传6个附件，否则将失败。
-	FileID string `json:"file_id"`
+	FileID string `json:"file_id,omitempty"`
 }
 
 // OAContentTableList 子明细列表，在此填写子明细的所有子控件的值，子控件的数据结构同一般控件
 type OAContentTableList struct {
 	// List 子明细列表，在此填写子明细的所有子控件的值，子控件的数据结构同一般控件
-	List []OAContent `json:"list"`
+	List []OAContent `json:"list,omitempty"`
 }
 
 // OAContentVacation 请假内容，即申请人在此组件内选择的请假信息
 type OAContentVacation struct {
 	// Selector 请假类型，所选选项与假期管理关联，为假期管理中的假期类型
-	Selector OAContentSelector `json:"selector"`
+	Selector OAContentSelector `json:"selector,omitempty"`
 	// Attendance 假勤组件
-	Attendance OAContentVacationAttendance `json:"attendance"`
+	Attendance OAContentVacationAttendance `json:"attendance,omitempty"`
 }
 
 // OAContentVacationAttendance 假勤组件
 type OAContentVacationAttendance struct {
 	// DateRange 假勤组件时间选择范围
-	DateRange OAContentVacationAttendanceDateRange `json:"date_range"`
+	DateRange OAContentVacationAttendanceDateRange `json:"date_range,omitempty"`
 	// Type 假勤组件类型：1-请假；3-出差；4-外出；5-加班
-	Type uint8 `json:"type"`
+	Type uint8 `json:"type,omitempty"`
 	// SliceInfo 时长支持按天分片信息， 2020/10/01之前的历史表单不支持时长分片
-	SliceInfo OAContentVacationAttendanceSliceInfo `json:"slice_info"`
+	SliceInfo OAContentVacationAttendanceSliceInfo `json:"slice_info,omitempty"`
 }
 
 // OAContentVacationAttendanceDateRange 假勤组件时间选择范围
 type OAContentVacationAttendanceDateRange struct {
 	// Type 时间展示类型：day-日期；hour-日期+时间
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 	//  时长范围
 	OAContentDateRange
 }
@@ -183,287 +183,287 @@ type OAContentVacationAttendanceDateRange struct {
 // OAContentVacationAttendanceSliceInfo 假勤组件时长支持按天分片信息， 2020/10/01之前的历史表单不支持时长分片
 type OAContentVacationAttendanceSliceInfo struct {
 	// Duration 总时长，单位是秒
-	Duration uint64 `json:"duration"`
+	Duration uint64 `json:"duration,omitempty"`
 	// State 时长计算来源类型: 1--系统自动计算;2--用户修改
-	State uint8 `json:"state"`
+	State uint8 `json:"state,omitempty"`
 	// DayItems 时长计算来源类型: 1--系统自动计算;2--用户修改
-	DayItems []OAContentVacationAttendanceSliceInfoDayItem `json:"day_items"`
+	DayItems []OAContentVacationAttendanceSliceInfoDayItem `json:"day_items,omitempty"`
 }
 
 // OAContentVacationAttendanceSliceInfoDayItem 假勤组件时长支持按天分片信息，每一天的分片时长信息
 type OAContentVacationAttendanceSliceInfoDayItem struct {
 	// Daytime 日期的00:00:00时间戳，Unix时间
-	Daytime uint64 `json:"daytime"`
+	Daytime uint64 `json:"daytime,omitempty"`
 	// Duration 分隔当前日期的时长秒数
-	Duration uint64 `json:"duration"`
+	Duration uint64 `json:"duration,omitempty"`
 }
 
 // OAContentPunchCorrection 补卡组件
 type OAContentPunchCorrection struct {
 	// State 异常状态说明
-	State string `json:"state"`
+	State string `json:"state,omitempty"`
 	// Time 补卡时间，Unix时间戳
-	Time uint64 `json:"time"`
+	Time uint64 `json:"time,omitempty"`
 	// Version 版本标识，为1的时候为新版补卡，daymonthyear有值
-	Version uint8 `json:"version"`
+	Version uint8 `json:"version,omitempty"`
 	// Daymonthyear 补卡日期0点Unix时间戳
-	Daymonthyear uint64 `json:"daymonthyear"`
+	Daymonthyear uint64 `json:"daymonthyear,omitempty"`
 }
 
 // OAContentLocation 位置控件
 type OAContentLocation struct {
 	// Latitude 纬度，精确到6位小数
-	Latitude string `json:"latitude"`
+	Latitude string `json:"latitude,omitempty"`
 	// Longitude 经度，精确到6位小数
-	Longitude string `json:"longitude"`
+	Longitude string `json:"longitude,omitempty"`
 	// Title 地点标题
-	Title string `json:"title"`
+	Title string `json:"title,omitempty"`
 	// Address 地点详情地址
-	Address string `json:"address"`
+	Address string `json:"address,omitempty"`
 	// Time 选择地点的时间
-	Time int `json:"time"`
+	Time int `json:"time,omitempty"`
 }
 
 // OAContentRelatedApproval 关联审批单控件
 type OAContentRelatedApproval struct {
 	// SpNo 关联审批单的审批单号
-	SpNo string `json:"sp_no"`
+	SpNo string `json:"sp_no,omitempty"`
 }
 
 // OAContentFormula 公式控件
 type OAContentFormula struct {
 	// Value 公式的值，提交表单时无需填写，后台自动计算
-	Value string `json:"value"`
+	Value string `json:"value,omitempty"`
 }
 
 // OAContentDateRange 时长组件
 type OAContentDateRange struct {
 	// Type 时间展示类型：halfday-日期；hour-日期+时间
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 	// NewBegin 开始时间，unix时间戳
-	NewBegin int `json:"new_begin"`
+	NewBegin int `json:"new_begin,omitempty"`
 	// NewEnd 结束时间，unix时间戳
-	NewEnd int `json:"new_end"`
+	NewEnd int `json:"new_end,omitempty"`
 	// NewDuration 时长范围，单位秒
-	NewDuration int `json:"new_duration"`
+	NewDuration int `json:"new_duration,omitempty"`
 	// PerdayDuration 每天的工作时长
-	PerdayDuration int `json:"perday_duration"`
+	PerdayDuration int `json:"perday_duration,omitempty"`
 	// TimezoneInfo 时区信息，只有在非UTC+8的情况下会返回
-	TimezoneInfo *OAContentDateRangeTimezoneInfo `json:"timezone_info"`
+	TimezoneInfo *OAContentDateRangeTimezoneInfo `json:"timezone_info,omitempty"`
 }
 
 // OAContentDateRangeTimezoneInfo 时区信息
 type OAContentDateRangeTimezoneInfo struct {
 	// ZoneOffset 时区偏移量
-	ZoneOffset string `json:"zone_offset"`
+	ZoneOffset string `json:"zone_offset,omitempty"`
 	// ZoneDesc 时区描述
-	ZoneDesc string `json:"zone_desc"`
+	ZoneDesc string `json:"zone_desc,omitempty"`
 }
 
 // OAContentBankAccount 时长组件
 type OAContentBankAccount struct {
 	// AccountType 账户类型 ：1：对公账户,2：个人账户
-	AccountType uint8 `json:"account_type"`
+	AccountType uint8 `json:"account_type,omitempty"`
 	// AccountName 账户名
-	AccountName string `json:"account_name"`
+	AccountName string `json:"account_name,omitempty"`
 	// AccountNumber 账号
-	AccountNumber string `json:"account_number"`
+	AccountNumber string `json:"account_number,omitempty"`
 	// Remark 备注
-	Remark string `json:"remark"`
+	Remark string `json:"remark,omitempty"`
 	// Bank 银行信息
-	Bank OAContentBankAccountBank `json:"bank"`
+	Bank OAContentBankAccountBank `json:"bank,omitempty"`
 }
 
 // OAContentBankAccountBank 银行信息
 type OAContentBankAccountBank struct {
 	// BankAlias 银行名称
-	BankAlias string `json:"bank_alias"`
+	BankAlias string `json:"bank_alias,omitempty"`
 	// BankAliasCode 银行代码
-	BankAliasCode string `json:"bank_alias_code"`
+	BankAliasCode string `json:"bank_alias_code,omitempty"`
 	// Province 省份
-	Province string `json:"province"`
+	Province string `json:"province,omitempty"`
 	// ProvinceCode 省份代码
-	ProvinceCode uint8 `json:"province_code"`
+	ProvinceCode uint8 `json:"province_code,omitempty"`
 	// City 城市
-	City string `json:"city"`
+	City string `json:"city,omitempty"`
 	// CityCode 城市代码
-	CityCode uint8 `json:"city_code"`
+	CityCode uint8 `json:"city_code,omitempty"`
 	// BankBranchName 银行支行
-	BankBranchName string `json:"bank_branch_name"`
+	BankBranchName string `json:"bank_branch_name,omitempty"`
 	// BankBranchId 银行支行联行号
-	BankBranchId string `json:"bank_branch_id"`
+	BankBranchId string `json:"bank_branch_id,omitempty"`
 }
 
 // OATemplateDetail 审批模板详情
 type OATemplateDetail struct {
 	// TemplateNames 模板名称，若配置了多语言则会包含中英文的模板名称，默认为zh_CN中文
-	TemplateNames []OAText `json:"template_names"`
+	TemplateNames []OAText `json:"template_names,omitempty"`
 	// TemplateContent 模板控件信息
-	TemplateContent OATemplateControls `json:"template_content"`
+	TemplateContent OATemplateControls `json:"template_content,omitempty"`
 	// Vacation Vacation控件（假勤控件）
-	Vacation OATemplateControlConfigVacation `json:"vacation_list"`
+	Vacation OATemplateControlConfigVacation `json:"vacation_list,omitempty"`
 }
 
 // OATemplateControls 模板控件数组。模板详情由多个不同类型的控件组成，控件类型详细说明见附录。
 type OATemplateControls struct {
 	// Controls 模板名称，若配置了多语言则会包含中英文的模板名称，默认为zh_CN中文
-	Controls []OATemplateControl `json:"controls"`
+	Controls []OATemplateControl `json:"controls,omitempty"`
 }
 
 // OATemplateControl 模板控件信息
 type OATemplateControl struct {
 	// Property 模板控件属性，包含了模板内控件的各种属性信息
-	Property OATemplateControlProperty `json:"property"`
+	Property OATemplateControlProperty `json:"property,omitempty"`
 	// Config 模板控件配置，包含了部分控件类型的附加类型、属性，详见附录说明。目前有配置信息的控件类型有：Date-日期/日期+时间；Selector-单选/多选；Contact-成员/部门；Table-明细；Attendance-假勤组件（请假、外出、出差、加班）
-	Config OATemplateControlConfig `json:"config"`
+	Config OATemplateControlConfig `json:"config,omitempty"`
 }
 
 // OATemplateControlProperty 模板控件属性
 type OATemplateControlProperty struct {
 	// Control 模板控件属性，包含了模板内控件的各种属性信息
-	Control OAControl `json:"control"`
+	Control OAControl `json:"control,omitempty"`
 	// ID 模板控件配置，包含了部分控件类型的附加类型、属性，详见附录说明。目前有配置信息的控件类型有：Date-日期/日期+时间；Selector-单选/多选；Contact-成员/部门；Table-明细；Attendance-假勤组件（请假、外出、出差、加班）
-	ID string `json:"id"`
+	ID string `json:"id,omitempty"`
 	// Title 模板控件配置，包含了部分控件类型的附加类型、属性，详见附录说明。目前有配置信息的控件类型有：Date-日期/日期+时间；Selector-单选/多选；Contact-成员/部门；Table-明细；Attendance-假勤组件（请假、外出、出差、加班）
-	Title []OAText `json:"title"`
+	Title []OAText `json:"title,omitempty"`
 	// Placeholder 模板控件配置，包含了部分控件类型的附加类型、属性，详见附录说明。目前有配置信息的控件类型有：Date-日期/日期+时间；Selector-单选/多选；Contact-成员/部门；Table-明细；Attendance-假勤组件（请假、外出、出差、加班）
-	Placeholder []OAText `json:"placeholder"`
+	Placeholder []OAText `json:"placeholder,omitempty"`
 	// Require 是否必填：1-必填；0-非必填
-	Require uint8 `json:"require"`
+	Require uint8 `json:"require,omitempty"`
 	// UnPrint 是否参与打印：1-不参与打印；0-参与打印
-	UnPrint uint8 `json:"un_print"`
+	UnPrint uint8 `json:"un_print,omitempty"`
 }
 
 // OATemplateControlConfig 模板控件配置
 type OATemplateControlConfig struct {
 	// Date Date控件（日期/日期+时间控件）
-	Date OATemplateControlConfigDate `json:"date"`
+	Date OATemplateControlConfigDate `json:"date,omitempty"`
 	// Selector Selector控件（单选/多选控件）
-	Selector OATemplateControlConfigSelector `json:"selector"`
+	Selector OATemplateControlConfigSelector `json:"selector,omitempty"`
 	// Contact Contact控件（成员/部门控件）
-	Contact OATemplateControlConfigContact `json:"contact"`
+	Contact OATemplateControlConfigContact `json:"contact,omitempty"`
 	// Table Table（明细控件）
-	Table OATemplateControlConfigTable `json:"table"`
+	Table OATemplateControlConfigTable `json:"table,omitempty"`
 	// Attendance Attendance控件（假勤控件）【出差】【加班】【外出】模板特有的控件
-	Attendance OATemplateControlConfigAttendance `json:"attendance"`
+	Attendance OATemplateControlConfigAttendance `json:"attendance,omitempty"`
 	// Vacation Vacation控件（假勤控件）【请假】模板特有控件, 请假类型强关联审批应用中的假期管理。
-	Vacation OATemplateControlConfigVacation `json:"vacation_list"`
+	Vacation OATemplateControlConfigVacation `json:"vacation_list,omitempty"`
 	// Tips Tips控件（说明文字控件）
-	Tips OATemplateControlConfigTips `json:"tips"`
+	Tips OATemplateControlConfigTips `json:"tips,omitempty"`
 }
 
 // OATemplateControlConfigDate 类型标志，日期/日期+时间控件的config中会包含此参数
 type OATemplateControlConfigDate struct {
 	// Type 时间展示类型：day-日期；hour-日期+时间
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // OATemplateControlConfigSelector 类型标志，单选/多选控件的config中会包含此参数
 type OATemplateControlConfigSelector struct {
 	// Type 选择类型：single-单选；multi-多选
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 	// Options 选项，包含单选/多选控件中的所有选项，可能有多个
-	Options []OATemplateControlConfigSelectorOption `json:"options"`
+	Options []OATemplateControlConfigSelectorOption `json:"options,omitempty"`
 }
 
 // OATemplateControlConfigSelectorOption 选项，包含单选/多选控件中的所有选项，可能有多个
 type OATemplateControlConfigSelectorOption struct {
 	// Key 选项key，选项的唯一id，可用于发起审批申请，为单选/多选控件赋值
-	Key string `json:"key"`
+	Key string `json:"key,omitempty"`
 	// Value 选项值，若配置了多语言则会包含中英文的选项值，默认为zh_CN中文
-	Value []OAText `json:"value"`
+	Value []OAText `json:"value,omitempty"`
 }
 
 // OATemplateControlConfigContact 类型标志，单选/多选控件的config中会包含此参数
 type OATemplateControlConfigContact struct {
 	// Type 选择类型：single-单选；multi-多选
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 	// Mode 选择对象：user-成员；department-部门
-	Mode string `json:"mode"`
+	Mode string `json:"mode,omitempty"`
 }
 
 // OATemplateControlConfigTable 类型标志，明细控件的config中会包含此参数
 type OATemplateControlConfigTable struct {
 	// Children 明细内的子控件，内部结构同controls
-	Children []OATemplateControl `json:"children"`
+	Children []OATemplateControl `json:"children,omitempty"`
 }
 
 // OATemplateControlConfigAttendance 类型标志，假勤控件的config中会包含此参数
 type OATemplateControlConfigAttendance struct {
 	// DateRange 假期控件属性
-	DateRange OATemplateControlConfigAttendanceDateRange `json:"date_range"`
+	DateRange OATemplateControlConfigAttendanceDateRange `json:"date_range,omitempty"`
 	// Type 假勤控件类型：1-请假，3-出差，4-外出，5-加班
-	Type uint8 `json:"type"`
+	Type uint8 `json:"type,omitempty"`
 }
 
 // OATemplateControlConfigAttendanceDateRange 假期控件属性
 type OATemplateControlConfigAttendanceDateRange struct {
 	// Type 时间刻度：hour-精确到分钟, halfday—上午/下午
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // OATemplateControlConfigVacation 类型标志，假勤控件的config中会包含此参数
 type OATemplateControlConfigVacation struct {
 	// Item 单个假期类型属性
-	Item []OATemplateControlConfigVacationItem `json:"item"`
+	Item []OATemplateControlConfigVacationItem `json:"item,omitempty"`
 }
 
 // OATemplateControlConfigVacationItem 类型标志，假勤控件的config中会包含此参数
 type OATemplateControlConfigVacationItem struct {
 	// ID 假期类型标识id
-	ID int `json:"id"`
+	ID int `json:"id,omitempty"`
 	// Name 假期类型名称，默认zh_CN中文名称
-	Name []OAText `json:"name"`
+	Name []OAText `json:"name,omitempty"`
 }
 
 // OATemplateControlConfigTips 类型标志，说明文字控件的config中会包含此参数
 type OATemplateControlConfigTips struct {
 	// TipsContent 说明文字数组，元素为不同语言的富文本说明文字
-	TipsContent []OATemplateControlConfigTipsContent `json:"tips_content"`
+	TipsContent []OATemplateControlConfigTipsContent `json:"tips_content,omitempty"`
 }
 
 // OATemplateControlConfigTipsContent 类型标志，说明文字控件的config中会包含此参数
 type OATemplateControlConfigTipsContent struct {
 	// Text 某个语言的富文本说明文字数组，元素为不同文本类型的说明文字分段
-	Text OATemplateControlConfigTipsContentText `json:"text"`
+	Text OATemplateControlConfigTipsContentText `json:"text,omitempty"`
 	// Lang 语言类型
-	Lang string `json:"lang"`
+	Lang string `json:"lang,omitempty"`
 }
 
 // OATemplateControlConfigTipsContentText 类型标志，说明文字控件的config中会包含此参数
 type OATemplateControlConfigTipsContentText struct {
 	// SubText 说明文字分段
-	SubText []OATemplateControlConfigTipsContentSubText `json:"sub_text"`
+	SubText []OATemplateControlConfigTipsContentSubText `json:"sub_text,omitempty"`
 }
 
 // OATemplateControlConfigTipsContentSubText 类型标志，说明文字控件的config中会包含此参数
 type OATemplateControlConfigTipsContentSubText struct {
 	// Type 文本类型 1:纯文本 2:链接，每个说明文字中只支持包含一个链接
-	Type uint8 `json:"type"`
+	Type uint8 `json:"type,omitempty"`
 	// Content 内容
-	Content OATemplateControlConfigTipsContentSubTextContent `json:"content"`
+	Content OATemplateControlConfigTipsContentSubTextContent `json:"content,omitempty"`
 }
 
 // OATemplateControlConfigTipsContentSubTextContent 类型标志，说明文字控件的config中会包含此参数
 type OATemplateControlConfigTipsContentSubTextContent struct {
 	// Text 纯文本类型的内容
-	Text *OATemplateControlConfigTipsContentSubTextContentPlain `json:"plain_text"`
+	Text *OATemplateControlConfigTipsContentSubTextContentPlain `json:"plain_text,omitempty"`
 	// Lang 链接类型的内容
-	Lang *OATemplateControlConfigTipsContentSubTextContentLink `json:"link"`
+	Lang *OATemplateControlConfigTipsContentSubTextContentLink `json:"link,omitempty"`
 }
 
 // OATemplateControlConfigTipsContentSubTextContentPlain 类型标志，说明文字控件的config中会包含此参数
 type OATemplateControlConfigTipsContentSubTextContentPlain struct {
 	// Content 纯文本文字
-	Content string `json:"content"`
+	Content string `json:"content,omitempty"`
 }
 
 // OATemplateControlConfigTipsContentSubTextContentLink 类型标志，说明文字控件的config中会包含此参数
 type OATemplateControlConfigTipsContentSubTextContentLink struct {
 	// Title 链接标题
-	Title string `json:"title"`
+	Title string `json:"title,omitempty"`
 	// URL 链接url
-	URL string `json:"url"`
+	URL string `json:"url,omitempty"`
 }
 
 // OAControl 控件类型
@@ -520,97 +520,97 @@ const OAControlAttendance OAControl = "Attendance"
 // OAApprovalDetail 审批申请详情
 type OAApprovalDetail struct {
 	// SpNo 审批编号
-	SpNo string `json:"sp_no"`
+	SpNo string `json:"sp_no,omitempty"`
 	// SpName 审批申请类型名称（审批模板名称）
-	SpName string `json:"sp_name"`
+	SpName string `json:"sp_name,omitempty"`
 	// SpStatus 申请单状态：1-审批中；2-已通过；3-已驳回；4-已撤销；6-通过后撤销；7-已删除；10-已支付
-	SpStatus uint8 `json:"sp_status"`
+	SpStatus uint8 `json:"sp_status,omitempty"`
 	// TemplateID 审批模板id。可在“获取审批申请详情”、“审批状态变化回调通知”中获得，也可在审批模板的模板编辑页面链接中获得。
-	TemplateID string `json:"template_id"`
+	TemplateID string `json:"template_id,omitempty"`
 	// ApplyTime 审批申请提交时间,Unix时间戳
-	ApplyTime int `json:"apply_time"`
+	ApplyTime int `json:"apply_time,omitempty"`
 	// Applicant 申请人信息
-	Applicant OAApprovalDetailApplicant `json:"applyer"`
+	Applicant OAApprovalDetailApplicant `json:"applyer,omitempty"`
 	// SpRecord 审批流程信息，可能有多个审批节点。
-	SpRecord []OAApprovalDetailSpRecord `json:"sp_record"`
+	SpRecord []OAApprovalDetailSpRecord `json:"sp_record,omitempty"`
 	// Notifier 抄送信息，可能有多个抄送节点
-	Notifier []OAApprovalDetailNotifier `json:"notifyer"`
+	Notifier []OAApprovalDetailNotifier `json:"notifyer,omitempty"`
 	// ApplyData 审批申请数据
-	ApplyData OAContents `json:"apply_data"`
+	ApplyData OAContents `json:"apply_data,omitempty"`
 	// Comments 审批申请备注信息，可能有多个备注节点
-	Comments []OAApprovalDetailComment `json:"comments"`
+	Comments []OAApprovalDetailComment `json:"comments,omitempty"`
 }
 
 // OAApprovalDetailApplicant 审批申请详情申请人信息
 type OAApprovalDetailApplicant struct {
 	// UserID 申请人userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid,omitempty"`
 	// PartyID 申请人所在部门id
-	PartyID string `json:"partyid"`
+	PartyID string `json:"partyid,omitempty"`
 }
 
 // OAApprovalDetailSpRecord 审批流程信息，可能有多个审批节点。
 type OAApprovalDetailSpRecord struct {
 	// SpStatus 审批节点状态：1-审批中；2-已同意；3-已驳回；4-已转审
-	SpStatus uint8 `json:"sp_status"`
+	SpStatus uint8 `json:"sp_status,omitempty"`
 	// ApproverAttr 节点审批方式：1-或签；2-会签
-	ApproverAttr uint8 `json:"approverattr"`
+	ApproverAttr uint8 `json:"approverattr,omitempty"`
 	// Details 审批节点详情,一个审批节点有多个审批人
-	Details []OAApprovalDetailSpRecordDetail `json:"details"`
+	Details []OAApprovalDetailSpRecordDetail `json:"details,omitempty"`
 }
 
 // OAApprovalDetailSpRecordDetail 审批节点详情,一个审批节点有多个审批人
 type OAApprovalDetailSpRecordDetail struct {
 	// Approver 分支审批人
-	Approver OAApprovalDetailSpRecordDetailApprover `json:"approver"`
+	Approver OAApprovalDetailSpRecordDetailApprover `json:"approver,omitempty"`
 	// Speech 审批意见
-	Speech string `json:"speech"`
+	Speech string `json:"speech,omitempty"`
 	// SpStatus 分支审批人审批状态：1-审批中；2-已同意；3-已驳回；4-已转审
-	SpStatus uint8 `json:"sp_status"`
+	SpStatus uint8 `json:"sp_status,omitempty"`
 	// SpTime 节点分支审批人审批操作时间戳，0表示未操作
-	SpTime int `json:"sptime"`
+	SpTime int `json:"sptime,omitempty"`
 	// MediaID 节点分支审批人审批意见附件，media_id具体使用请参考：文档-获取临时素材
-	MediaID []string `json:"media_id"`
+	MediaID []string `json:"media_id,omitempty"`
 }
 
 // OAApprovalDetailSpRecordDetailApprover 分支审批人
 type OAApprovalDetailSpRecordDetailApprover struct {
 	// UserID 分支审批人userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid,omitempty"`
 }
 
 // OAApprovalDetailNotifier 抄送信息，可能有多个抄送节点
 type OAApprovalDetailNotifier struct {
 	// UserID 节点抄送人userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid,omitempty"`
 }
 
 // OAApprovalDetailComment 审批申请备注信息，可能有多个备注节点
 type OAApprovalDetailComment struct {
 	// CommentUserInfo 备注人信息
-	CommentUserInfo OAApprovalDetailCommentUserInfo `json:"commentUserInfo"`
+	CommentUserInfo OAApprovalDetailCommentUserInfo `json:"commentUserInfo,omitempty"`
 	// CommentTime 备注提交时间戳，Unix时间戳
-	CommentTime int `json:"commenttime"`
+	CommentTime int `json:"commenttime,omitempty"`
 	// CommentTontent 备注文本内容
-	CommentTontent string `json:"commentcontent"`
+	CommentTontent string `json:"commentcontent,omitempty"`
 	// CommentID 备注id
-	CommentID string `json:"commentid"`
+	CommentID string `json:"commentid,omitempty"`
 	// MediaID 备注附件id，可能有多个，media_id具体使用请参考：文档-获取临时素材
-	MediaID []string `json:"media_id"`
+	MediaID []string `json:"media_id,omitempty"`
 }
 
 // OAApprovalDetailCommentUserInfo 备注人信息
 type OAApprovalDetailCommentUserInfo struct {
 	// UserID 备注人userid
-	UserID string `json:"userid"`
+	UserID string `json:"userid,omitempty"`
 }
 
 // OAApprovalInfoFilter 备注人信息
 type OAApprovalInfoFilter struct {
 	// Key 筛选类型，包括：template_id - 模板类型/模板id；creator - 申请人；department - 审批单提单者所在部门；sp_status - 审批状态。注意:仅“部门”支持同时配置多个筛选条件。不同类型的筛选条件之间为“与”的关系，同类型筛选条件之间为“或”的关系
-	Key OAApprovalInfoFilterKey `json:"key"`
+	Key OAApprovalInfoFilterKey `json:"key,omitempty"`
 	// Value 筛选值，对应为：template_id - 模板id；creator - 申请人userid；department - 所在部门id；sp_status - 审批单状态（1-审批中；2-已通过；3-已驳回；4-已撤销；6-通过后撤销；7-已删除；10-已支付）
-	Value string `json:"value"`
+	Value string `json:"value,omitempty"`
 }
 
 // OAApprovalInfoFilterKey 拉取审批筛选类型
@@ -631,95 +631,95 @@ const OAApprovalInfoFilterKeySpStatus OAApprovalInfoFilterKey = "sp_status"
 // CorpVacationConf 企业假期管理配置
 type CorpVacationConf struct {
 	// ID 假期id
-	ID uint32 `json:"id"`
+	ID uint32 `json:"id,omitempty"`
 	// Name 假期名称
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// TimeAttr 假期时间刻度：0-按天请假；1-按小时请假
-	TimeAttr uint32 `json:"time_attr"`
+	TimeAttr uint32 `json:"time_attr,omitempty"`
 	// DurationType 时长计算类型：0-自然日；1-工作日
-	DurationType uint32 `json:"duration_type"`
+	DurationType uint32 `json:"duration_type,omitempty"`
 	// QuotaAttr 假期发放相关配置
-	QuotaAttr CorpVacationConfQuotaAttr `json:"quota_attr"`
+	QuotaAttr CorpVacationConfQuotaAttr `json:"quota_attr,omitempty"`
 	// PerdayDuration 单位换算值，即1天对应的秒数，可将此值除以3600得到一天对应的小时。
-	PerdayDuration uint32 `json:"perday_duration"`
+	PerdayDuration uint32 `json:"perday_duration,omitempty"`
 	// IsNewovertime 是否关联加班调休，0-不关联，1-关联，关联后改假期类型变为调休假
-	IsNewovertime *uint32 `json:"is_newovertime"`
+	IsNewovertime *uint32 `json:"is_newovertime,omitempty"`
 	// EnterCompTimeLimit 入职时间大于n个月可用该假期，单位为月
-	EnterCompTimeLimit *uint32 `json:"enter_comp_time_limit"`
+	EnterCompTimeLimit *uint32 `json:"enter_comp_time_limit,omitempty"`
 	// ExpireRule 假期过期规则
-	ExpireRule *CorpVacationConfExpireRule `json:"expire_rule"`
+	ExpireRule *CorpVacationConfExpireRule `json:"expire_rule,omitempty"`
 }
 
 // CorpVacationConfQuotaAttr 企业假期管理配置-假期发放相关配置
 type CorpVacationConfQuotaAttr struct {
 	// Type 假期发放类型：0-不限额；1-自动按年发放；2-手动发放；3-自动按月发放
-	Type uint32 `json:"type"`
+	Type uint32 `json:"type,omitempty"`
 	// AutoresetTime 自动发放时间戳，若假期发放为自动发放，此参数代表自动发放日期。注：返回时间戳的年份是无意义的，请只使用返回时间的月和日；若at_entry_date为true，该字段则无效，假期发放时间为员工入职时间
-	AutoresetTime uint32 `json:"autoreset_time"`
+	AutoresetTime uint32 `json:"autoreset_time,omitempty"`
 	// AutoresetDuration 自动发放时长，单位为秒。注：只有自动按年发放和自动按月发放时有效，若选择了按照工龄和司龄发放，该字段无效，发放时长请使用区间中的quota
-	AutoresetDuration uint32 `json:"autoreset_duration"`
+	AutoresetDuration uint32 `json:"autoreset_duration,omitempty"`
 	// QuotaRuleType 额度计算类型，自动按年发放时有效，0-固定额度；1-按工龄计算；2-按司龄计算
-	QuotaRuleType *uint32 `json:"quota_rule_type"`
+	QuotaRuleType *uint32 `json:"quota_rule_type,omitempty"`
 	// QuotaRules 额度计算规则，自动按年发放时有效
-	QuotaRules *CorpVacationConfQuotaRules `json:"quota_rules"`
+	QuotaRules *CorpVacationConfQuotaRules `json:"quota_rules,omitempty"`
 	// AtEntryDate 是否按照入职日期发放假期，只有在自动按年发放类型有效，选择后发放假期的时间会成为员工入职的日期
-	AtEntryDate *bool `json:"at_entry_date"`
+	AtEntryDate *bool `json:"at_entry_date,omitempty"`
 	// AutoResetMonthDay 自动按月发放的发放时间，只有自动按月发放类型有效
-	AutoResetMonthDay *uint32 `json:"auto_reset_month_day"`
+	AutoResetMonthDay *uint32 `json:"auto_reset_month_day,omitempty"`
 }
 
 // CorpVacationConfQuotaRules 企业假期管理配置-额度计算规则
 type CorpVacationConfQuotaRules struct {
 	// List 额度计算规则区间，只有在选择了按照工龄计算或者按照司龄计算时有效
-	List []CorpVacationConfQuotaRule `json:"list"`
+	List []CorpVacationConfQuotaRule `json:"list,omitempty"`
 }
 
 // CorpVacationConfQuotaRule 企业假期管理配置-额度计算规则区间
 type CorpVacationConfQuotaRule struct {
 	// Quota 区间发放时长，单位为s
-	Quota uint32 `json:"quota"`
+	Quota uint32 `json:"quota,omitempty"`
 	// Begin 区间开始点，单位为年
-	Begin uint32 `json:"begin"`
+	Begin uint32 `json:"begin,omitempty"`
 	// End 区间结束点，无穷大则为0，单位为年
-	End uint32 `json:"end"`
+	End uint32 `json:"end,omitempty"`
 	// BasedOnActualWorkTime 是否根据实际入职时间计算假期，选择后会根据员工在今年的实际工作时间发放假期
-	BasedOnActualWorkTime bool `json:"based_on_actual_work_time"`
+	BasedOnActualWorkTime bool `json:"based_on_actual_work_time,omitempty"`
 }
 
 // CorpVacationConfExpireRule 企业假期管理配置-假期过期规则
 type CorpVacationConfExpireRule struct {
 	// Type 过期规则类型，1-按固定时间过期，2-从发放日按年过期，3-从发放日按月过期，4-不过期
-	Type uint32 `json:"type"`
+	Type uint32 `json:"type,omitempty"`
 	// Duration 有效期，按年过期为年，按月过期为月，只有在以上两种情况时有效
-	Duration uint64 `json:"duration"`
+	Duration uint64 `json:"duration,omitempty"`
 	// Date 失效日期，只有按固定时间过期时有效
-	Date CorpVacationConfDate `json:"date"`
+	Date CorpVacationConfDate `json:"date,omitempty"`
 	// ExternDurationEnable 是否允许延长有效期
-	ExternDurationEnable bool `json:"extern_duration_enable"`
+	ExternDurationEnable bool `json:"extern_duration_enable,omitempty"`
 	// ExternDuration 延长有效期的具体时间，只有在extern_duration_enable为true时有效
-	ExternDuration CorpVacationConfDate `json:"extern_duration"`
+	ExternDuration CorpVacationConfDate `json:"extern_duration,omitempty"`
 }
 
 // CorpVacationConfDate 企业假期管理配置-失效日期
 type CorpVacationConfDate struct {
 	// Month 月份
-	Month uint32 `json:"month"`
+	Month uint32 `json:"month,omitempty"`
 	// Day 日
-	Day uint32 `json:"day"`
+	Day uint32 `json:"day,omitempty"`
 }
 
 // UserVacationQuota 假期列表
 type UserVacationQuota struct {
 	// ID 假期id
-	ID uint32 `json:"id"`
+	ID uint32 `json:"id,omitempty"`
 	// AssignDuration 发放时长，单位为秒
-	AssignDuration uint32 `json:"assignduration"`
+	AssignDuration uint32 `json:"assignduration,omitempty"`
 	// UsedDuration 使用时长，单位为秒
-	UsedDuration uint32 `json:"usedduration"`
+	UsedDuration uint32 `json:"usedduration,omitempty"`
 	// LeftDuration 剩余时长，单位为秒
-	LeftDuration uint32 `json:"leftduration"`
+	LeftDuration uint32 `json:"leftduration,omitempty"`
 	// VacationName 假期名称
-	VacationName string `json:"vacationname"`
+	VacationName string `json:"vacationname,omitempty"`
 	// RealAssignDuration 假期的实际发放时长，通常在设置了按照实际工作时间发放假期后进行计算
-	RealAssignDuration uint32 `json:"real_assignduration"`
+	RealAssignDuration uint32 `json:"real_assignduration,omitempty"`
 }
