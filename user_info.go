@@ -48,14 +48,14 @@ type UserDetail struct {
 }
 
 // CreateUser 创建成员
-func (c *WorkwxApp) CreateUser(userDetail *UserDetail) (*respUserCreate, error) {
-	resp, err := c.execUserCreate(reqUserCreate{
+func (c *WorkwxApp) CreateUser(userDetail *UserDetail) error {
+	_, err := c.execUserCreate(reqUserCreate{
 		UserDetail: userDetail,
 	})
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return &resp, nil
+	return nil
 }
 
 // GetUser 读取成员
@@ -77,25 +77,25 @@ func (c *WorkwxApp) GetUser(userid string) (*UserInfo, error) {
 }
 
 // UpdateUser 更新成员
-func (c *WorkwxApp) UpdateUser(userDetail *UserDetail) (*respUserUpdate, error) {
-	resp, err := c.execUserUpdate(reqUserUpdate{
+func (c *WorkwxApp) UpdateUser(userDetail *UserDetail) error {
+	_, err := c.execUserUpdate(reqUserUpdate{
 		UserDetail: userDetail,
 	})
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return &resp, nil
+	return nil
 }
 
 // DeleteUser 删除成员
-func (c *WorkwxApp) DeleteUser(userid string) (*respUserDelete, error) {
-	resp, err := c.execUserDelete(reqUserDelete{
+func (c *WorkwxApp) DeleteUser(userid string) error {
+	_, err := c.execUserDelete(reqUserDelete{
 		UserID: userid,
 	})
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return &resp, nil
+	return nil
 }
 
 // ListUsersByDeptID 获取部门成员详情
