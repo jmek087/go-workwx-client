@@ -126,7 +126,10 @@ func (e *goEmitter) emitModelField(x *apiModelField) error {
 			}
 			// 添加 omitempty 标签
 			if k == "json" {
-				v = strings.TrimSuffix(v, "\"") + "," + "omitempty"
+				// 检查是否已经包含omitempty
+				if !strings.Contains(v, "omitempty") {
+					v = strings.TrimSuffix(v, "\"") + ",omitempty"
+				}
 			}
 
 			e.e("%s:\"%s\"", k, v)

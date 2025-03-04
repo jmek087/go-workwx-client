@@ -154,6 +154,27 @@ type respMessageSend struct {
 	InvalidTags    string `json:"invalidtag"`
 }
 
+type reqUserCreate struct {
+	UserDetail *UserDetail
+}
+
+var _ bodyer = reqUserCreate{}
+
+func (x reqUserCreate) intoBody() ([]byte, error) {
+	return marshalIntoJSONBody(x.UserDetail)
+}
+
+// respUserCreate 创建成员响应
+type respUserCreate struct {
+	respCommon
+	CreatedDepartmentList struct {
+		DepartmentInfo []struct {
+			Name string `json:"name"`
+			ID   int64  `json:"id"`
+		} `json:"department_info"`
+	} `json:"created_department_list"`
+}
+
 type reqUserGet struct {
 	UserID string
 }
@@ -186,6 +207,23 @@ func (x reqUserUpdate) intoBody() ([]byte, error) {
 
 // respUserUpdate 更新成员响应
 type respUserUpdate struct {
+	respCommon
+}
+
+type reqUserDelete struct {
+	UserID string
+}
+
+var _ urlValuer = reqUserDelete{}
+
+func (x reqUserDelete) intoURLValues() url.Values {
+	return url.Values{
+		"userid": {x.UserID},
+	}
+}
+
+// respUserDelete 删除成员响应
+type respUserDelete struct {
 	respCommon
 }
 

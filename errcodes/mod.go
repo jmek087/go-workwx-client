@@ -5,7 +5,7 @@ package errcodes
 // ErrCode 错误码类型
 //
 // 全局错误码文档: https://developer.work.weixin.qq.com/document/path/90313
-// 文档爬取时间: 2025-01-22 11:04:42 +0800
+// 文档爬取时间: 2025-03-04 14:49:10 +0800
 //
 // NOTE: 关于错误码的名字为何如此无聊:
 //
@@ -4355,6 +4355,16 @@ const ErrCode93006 ErrCode = 93006
 // 排查方法: -
 const ErrCode93008 ErrCode = 93008
 
+// ErrCode93017 发消息的请求内容不能为空
+//
+// 排查方法: -
+const ErrCode93017 ErrCode = 93017
+
+// ErrCode93018 图片大小超过限制
+//
+// 排查方法: -
+const ErrCode93018 ErrCode = 93018
+
 // ErrCode94000 应用未开启工作台自定义模式
 //
 // 排查方法: 请在管理端后台应用详情里面开启自定义工作台模式
@@ -4523,6 +4533,11 @@ const ErrCode95018 ErrCode = 95018
 //
 // [获取接待人员列表]: https://developer.work.weixin.qq.com/document/path/90313#31064
 const ErrCode95019 ErrCode = 95019
+
+// ErrCode95020 接待人员配置超过上限
+//
+// 排查方法: -
+const ErrCode95020 ErrCode = 95020
 
 // ErrCode95022 location_type非法
 //
@@ -5504,7 +5519,7 @@ const ErrCode610016 ErrCode = 610016
 //
 // 小程序和企业主体不一致。确认：
 // 1) 小程序的主体名称，或者小程序绑定的开放平台账号主体名称，与企业的主体名称是否一致。
-// 2) 如果小程序、开放平台账号、企业三者的主体一致，那需要调用接口传入的openid与unionid是否该小程序获取。
+// 2) 如果小程序、开放平台账号、企业三者的主体一致，那需要确认调用接口传入的openid与unionid是否该小程序获取。
 //
 // [查看帮助]: https://developer.work.weixin.qq.com/document/path/90313#%E9%94%99%E8%AF%AF%E7%A0%81%EF%BC%9A610017
 const ErrCode610017 ErrCode = 610017

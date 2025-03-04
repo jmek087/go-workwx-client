@@ -65,6 +65,32 @@ func (x UserDetail) intoUserInfo() (UserInfo, error) {
 		return UserInfo{}, err
 	}
 
+	// 转换扩展属性
+	var extAttrs *UserExtAttrs
+	if x.ExtAttr != nil {
+		attrs := make([]UserExtAttr, len(x.ExtAttr.Attrs))
+		for i, attr := range x.ExtAttr.Attrs {
+			attrs[i] = UserExtAttr{
+				Type: attr.Type,
+				Name: attr.Name,
+			}
+			if attr.Text != nil {
+				attrs[i].Text = &UserExtAttrText{
+					Value: attr.Text.Value,
+				}
+			}
+			if attr.Web != nil {
+				attrs[i].Web = &UserExtAttrWeb{
+					URL:   attr.Web.URL,
+					Title: attr.Web.Title,
+				}
+			}
+		}
+		extAttrs = &UserExtAttrs{
+			Attrs: attrs,
+		}
+	}
+
 	return UserInfo{
 		UserID:         x.UserID,
 		Name:           x.Name,
@@ -81,5 +107,6 @@ func (x UserDetail) intoUserInfo() (UserInfo, error) {
 		QRCodeURL:      x.QRCodeURL,
 		MainDepartment: x.MainDepartment,
 		DirectLeader:   x.DirectLeader,
+		ExtAttr:        extAttrs,
 	}, nil
 }

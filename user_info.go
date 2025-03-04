@@ -1,26 +1,61 @@
 package workwx
 
+// ExtAttrText 文本类型的扩展属性
+type ExtAttrText struct {
+	Value string `json:"value"`
+}
+
+// ExtAttrWeb 网页类型的扩展属性
+type ExtAttrWeb struct {
+	URL   string `json:"url"`
+	Title string `json:"title"`
+}
+
+// ExtAttr 扩展属性
+type ExtAttr struct {
+	Type int          `json:"type"`
+	Name string       `json:"name"`
+	Text *ExtAttrText `json:"text,omitempty"`
+	Web  *ExtAttrWeb  `json:"web,omitempty"`
+}
+
+// ExtAttrs 扩展属性集合
+type ExtAttrs struct {
+	Attrs []ExtAttr `json:"attrs"`
+}
+
 // UserDetail 成员详细信息的公共字段
 type UserDetail struct {
-	UserID         string   `json:"userid"`
-	Name           string   `json:"name,omitempty"`
-	DeptIDs        []int64  `json:"department"`
-	DeptOrder      []uint32 `json:"order"`
-	Position       string   `json:"position"`
-	Mobile         string   `json:"mobile,omitempty"`
-	Gender         string   `json:"gender,omitempty"`
-	Email          string   `json:"email,omitempty"`
-	IsLeaderInDept []int    `json:"is_leader_in_dept"`
-	AvatarURL      string   `json:"avatar"`
-	Telephone      string   `json:"telephone"`
-	IsEnabled      int      `json:"enable"`
-	Alias          string   `json:"alias"`
-	Status         int      `json:"status"`
-	QRCodeURL      string   `json:"qr_code"`
-	MainDepartment int64    `json:"main_department"`
-	DirectLeader   []string `json:"direct_leader"`
-	// TODO: extattr external_profile external_position
+	UserID         string    `json:"userid"`
+	Name           string    `json:"name,omitempty"`
+	DeptIDs        []int64   `json:"department"`
+	DeptOrder      []uint32  `json:"order"`
+	Position       string    `json:"position"`
+	Mobile         string    `json:"mobile,omitempty"`
+	Gender         string    `json:"gender,omitempty"`
+	Email          string    `json:"email,omitempty"`
+	IsLeaderInDept []int     `json:"is_leader_in_dept"`
+	AvatarURL      string    `json:"avatar"`
+	Telephone      string    `json:"telephone"`
+	IsEnabled      int       `json:"enable"`
+	Alias          string    `json:"alias"`
+	Status         int       `json:"status"`
+	QRCodeURL      string    `json:"qr_code"`
+	MainDepartment int64     `json:"main_department"`
+	DirectLeader   []string  `json:"direct_leader"`
+	ExtAttr        *ExtAttrs `json:"extattr,omitempty"`
+	// TODO: external_profile external_position
+}
 
+// CreateUser 创建成员
+func (c *WorkwxApp) CreateUser(userDetail *UserDetail) (*respUserCreate, error) {
+	resp, err := c.execUserCreate(reqUserCreate{
+		UserDetail: userDetail,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
 }
 
 // GetUser 读取成员
@@ -42,14 +77,25 @@ func (c *WorkwxApp) GetUser(userid string) (*UserInfo, error) {
 }
 
 // UpdateUser 更新成员
-func (c *WorkwxApp) UpdateUser(userDetail *UserDetail) error {
-	_, err := c.execUserUpdate(reqUserUpdate{
+func (c *WorkwxApp) UpdateUser(userDetail *UserDetail) (*respUserUpdate, error) {
+	resp, err := c.execUserUpdate(reqUserUpdate{
 		UserDetail: userDetail,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return &resp, nil
+}
+
+// DeleteUser 删除成员
+func (c *WorkwxApp) DeleteUser(userid string) (*respUserDelete, error) {
+	resp, err := c.execUserDelete(reqUserDelete{
+		UserID: userid,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &resp, nil
 }
 
 // ListUsersByDeptID 获取部门成员详情

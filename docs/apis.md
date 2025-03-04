@@ -16,10 +16,10 @@ Name|Request Type|Response Type|Access Token|URL|Doc
 
 Name|Request Type|Response Type|Access Token|URL|Doc
 :---|------------|-------------|------------|:--|:--
-`execUserCreate`|TODO|TODO|+|`POST /cgi-bin/user/create`|[创建成员](https://work.weixin.qq.com/api/doc#90000/90135/90195)
+`execUserCreate`|`reqUserCreate`|`respUserCreate`|+|`POST /cgi-bin/user/create`|[创建成员](https://work.weixin.qq.com/api/doc#90000/90135/90195)
 `execUserGet`|`reqUserGet`|`respUserGet`|+|`GET /cgi-bin/user/get`|[读取成员](https://work.weixin.qq.com/api/doc#90000/90135/90196)
 `execUserUpdate`|`reqUserUpdate`|`respUserUpdate`|+|`POST /cgi-bin/user/update`|[更新成员](https://work.weixin.qq.com/api/doc#90000/90135/90197)
-`execUserDelete`|TODO|TODO|+|`GET /cgi-bin/user/delete`|[删除成员](https://work.weixin.qq.com/api/doc#90000/90135/90198)
+`execUserDelete`|`reqUserDelete`|`respUserDelete`|+|`GET /cgi-bin/user/delete`|[删除成员](https://work.weixin.qq.com/api/doc#90000/90135/90198)
 `execUserBatchDelete`|TODO|TODO|+|`POST /cgi-bin/user/batchdelete`|[批量删除成员](https://work.weixin.qq.com/api/doc#90000/90135/90199)
 `execUserSimpleList`|TODO|TODO|+|`GET /cgi-bin/user/simplelist`|[获取部门成员](https://work.weixin.qq.com/api/doc#90000/90135/90200)
 `execUserList`|`reqUserList`|`respUserList`|+|`GET /cgi-bin/user/list`|[获取部门成员详情](https://work.weixin.qq.com/api/doc#90000/90135/90201)

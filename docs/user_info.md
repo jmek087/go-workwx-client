@@ -13,17 +13,61 @@ Name|Type|Doc
 `Mobile`|`string`|手机号码；第三方仅通讯录应用可获取
 `Gender`|`UserGender`|性别
 `Email`|`string`|邮箱；第三方仅通讯录应用可获取
-`AvatarURL`|`string`|头像 URL；第三方仅通讯录应用可获取<br />NOTE：如果要获取小图将url最后的”/0”改成”/100”即可。
+`AvatarURL`|`string`|头像 URL；第三方仅通讯录应用可获取<br />NOTE：如果要获取小图将url最后的"0"改成"100"即可。
 `Telephone`|`string`|座机；第三方仅通讯录应用可获取
 `IsEnabled`|`bool`|成员的启用状态
 `Alias`|`string`|别名；第三方仅通讯录应用可获取
-`ExtAttr`|TODO|扩展属性，第三方仅通讯录应用可获取
+`ExtAttr`|`*UserExtAttrs`|扩展属性，第三方仅通讯录应用可获取<br />包含文本和网页两种类型的扩展属性
 `Status`|`UserStatus`|成员激活状态
 `QRCodeURL`|`string`|员工个人二维码；第三方仅通讯录应用可获取<br />扫描可添加为外部联系人
 `MainDepartment`|`int64`|主部门，仅当应用对主部门有查看权限时返回
 `DirectLeader`|`[]string`|直属上级UserID，返回在应用可见范围内的直属上级列表，最多有1个直属上级
 `ExternalProfile`|TODO|成员对外属性，字段详情见对外属性；第三方仅通讯录应用可获取
 `ExternalPosition`|TODO|对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。
+
+### `UserExtAttrText` 用户文本类型的扩展属性
+
+Name|Type|Doc
+:---|:---|:--
+`Value`|`string`|文本内容
+
+### `UserExtAttrWeb` 用户网页类型的扩展属性
+
+Name|Type|Doc
+:---|:---|:--
+`URL`|`string`|网页链接
+`Title`|`string`|网页标题
+
+### `UserExtAttr` 用户扩展属性
+
+Name|Type|Doc
+:---|:---|:--
+`Type`|`int`|扩展属性类型：0-文本，1-网页
+`Name`|`string`|扩展属性名称
+`Text`|`*UserExtAttrText`|文本类型的扩展属性
+`Web`|`*UserExtAttrWeb`|网页类型的扩展属性
+
+### `UserExtAttrs` 用户扩展属性集合
+
+Name|Type|Doc
+:---|:---|:--
+`Attrs`|`[]UserExtAttr`|扩展属性列表
+
+### `UserDeptInfo` 用户部门信息
+
+Name|Type|Doc
+:---|:---|:--
+`DeptID`|`int64`|部门 ID
+`Order`|`uint32`|部门内的排序值，默认为0，数值越大排序越前面
+`IsLeader`|`bool`|在所在的部门内是否为上级
+
+### `UserIdentityInfo` 访问用户身份信息
+
+Name|JSON|Type|Doc
+:---|:---|:---|:--
+`UserID`|`UserId`|`string`|成员UserID。若需要获得用户详情信息，可调用通讯录接口：读取成员。如果是互联企业，则返回的UserId格式如：CorpId/userid
+`OpenID`|`OpenId`|`string`|非企业成员的标识，对当前企业唯一。不超过64字节
+`DeviceID`|`DeviceId`|`string`|手机设备号(由企业微信在安装时随机生成，删除重装会改变，升级不受影响)
 
 ```go
 // UserGender 用户性别
@@ -53,19 +97,3 @@ const (
 	UserStatusUnactivated UserStatus = 4
 )
 ```
-
-### `UserDeptInfo` 用户部门信息
-
-Name|Type|Doc
-:---|:---|:--
-`DeptID`|`int64`|部门 ID
-`Order`|`uint32`|部门内的排序值，默认为0，数值越大排序越前面
-`IsLeader`|`bool`|在所在的部门内是否为上级
-
-### `UserIdentityInfo` 访问用户身份信息
-
-Name|JSON|Type|Doc
-:---|:---|:---|:--
-`UserID`|`UserId`|`string`|成员UserID。若需要获得用户详情信息，可调用通讯录接口：读取成员。如果是互联企业，则返回的UserId格式如：CorpId/userid
-`OpenID`|`OpenId`|`string`|非企业成员的标识，对当前企业唯一。不超过64字节
-`DeviceID`|`DeviceId`|`string`|手机设备号(由企业微信在安装时随机生成，删除重装会改变，升级不受影响)

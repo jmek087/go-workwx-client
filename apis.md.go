@@ -57,6 +57,17 @@ func (c *WorkwxApp) execAuthCode2UserInfo(req reqAuthCode2UserInfo) (respAuthCod
 	return resp, nil
 }
 
+// execUserCreate 创建成员
+func (c *WorkwxApp) execUserCreate(req reqUserCreate) (respUserCreate, error) {
+	var resp respUserCreate
+	err := executeQyapiJSONPost(c, "/cgi-bin/user/create", req, &resp, true)
+	if err != nil {
+		return respUserCreate{}, err
+	}
+
+	return resp, nil
+}
+
 // execUserGet 读取成员
 func (c *WorkwxApp) execUserGet(req reqUserGet) (respUserGet, error) {
 	var resp respUserGet
@@ -74,6 +85,17 @@ func (c *WorkwxApp) execUserUpdate(req reqUserUpdate) (respUserUpdate, error) {
 	err := executeQyapiJSONPost(c, "/cgi-bin/user/update", req, &resp, true)
 	if err != nil {
 		return respUserUpdate{}, err
+	}
+
+	return resp, nil
+}
+
+// execUserDelete 删除成员
+func (c *WorkwxApp) execUserDelete(req reqUserDelete) (respUserDelete, error) {
+	var resp respUserDelete
+	err := executeQyapiGet(c, "/cgi-bin/user/delete", req, &resp, true)
+	if err != nil {
+		return respUserDelete{}, err
 	}
 
 	return resp, nil

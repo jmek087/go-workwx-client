@@ -22,7 +22,7 @@ type UserInfo struct {
 	Email string
 	// AvatarURL 头像 URL；第三方仅通讯录应用可获取
 	//
-	// NOTE：如果要获取小图将url最后的”/0”改成”/100”即可。
+	// NOTE：如果要获取小图将url最后的"0"改成"100"即可。
 	AvatarURL string
 	// Telephone 座机；第三方仅通讯录应用可获取
 	Telephone string
@@ -30,6 +30,10 @@ type UserInfo struct {
 	IsEnabled bool
 	// Alias 别名；第三方仅通讯录应用可获取
 	Alias string
+	// ExtAttr 扩展属性，第三方仅通讯录应用可获取
+	//
+	// 包含文本和网页两种类型的扩展属性
+	ExtAttr *UserExtAttrs
 	// Status 成员激活状态
 	Status UserStatus
 	// QRCodeURL 员工个人二维码；第三方仅通讯录应用可获取
@@ -40,6 +44,58 @@ type UserInfo struct {
 	MainDepartment int64
 	// DirectLeader 直属上级UserID，返回在应用可见范围内的直属上级列表，最多有1个直属上级
 	DirectLeader []string
+}
+
+// UserExtAttrText 用户文本类型的扩展属性
+type UserExtAttrText struct {
+	// Value 文本内容
+	Value string
+}
+
+// UserExtAttrWeb 用户网页类型的扩展属性
+type UserExtAttrWeb struct {
+	// URL 网页链接
+	URL string
+	// Title 网页标题
+	Title string
+}
+
+// UserExtAttr 用户扩展属性
+type UserExtAttr struct {
+	// Type 扩展属性类型：0-文本，1-网页
+	Type int
+	// Name 扩展属性名称
+	Name string
+	// Text 文本类型的扩展属性
+	Text *UserExtAttrText
+	// Web 网页类型的扩展属性
+	Web *UserExtAttrWeb
+}
+
+// UserExtAttrs 用户扩展属性集合
+type UserExtAttrs struct {
+	// Attrs 扩展属性列表
+	Attrs []UserExtAttr
+}
+
+// UserDeptInfo 用户部门信息
+type UserDeptInfo struct {
+	// DeptID 部门 ID
+	DeptID int64
+	// Order 部门内的排序值，默认为0，数值越大排序越前面
+	Order uint32
+	// IsLeader 在所在的部门内是否为上级
+	IsLeader bool
+}
+
+// UserIdentityInfo 访问用户身份信息
+type UserIdentityInfo struct {
+	// UserID 成员UserID。若需要获得用户详情信息，可调用通讯录接口：读取成员。如果是互联企业，则返回的UserId格式如：CorpId/userid
+	UserID string `json:"UserId,omitempty"`
+	// OpenID 非企业成员的标识，对当前企业唯一。不超过64字节
+	OpenID string `json:"OpenId,omitempty"`
+	// DeviceID 手机设备号(由企业微信在安装时随机生成，删除重装会改变，升级不受影响)
+	DeviceID string `json:"DeviceId,omitempty"`
 }
 
 // UserGender 用户性别
@@ -68,23 +124,3 @@ const (
 	// UserStatusUnactivated 未激活
 	UserStatusUnactivated UserStatus = 4
 )
-
-// UserDeptInfo 用户部门信息
-type UserDeptInfo struct {
-	// DeptID 部门 ID
-	DeptID int64
-	// Order 部门内的排序值，默认为0，数值越大排序越前面
-	Order uint32
-	// IsLeader 在所在的部门内是否为上级
-	IsLeader bool
-}
-
-// UserIdentityInfo 访问用户身份信息
-type UserIdentityInfo struct {
-	// UserID 成员UserID。若需要获得用户详情信息，可调用通讯录接口：读取成员。如果是互联企业，则返回的UserId格式如：CorpId/userid
-	UserID string `json:"UserId,omitempty"`
-	// OpenID 非企业成员的标识，对当前企业唯一。不超过64字节
-	OpenID string `json:"OpenId,omitempty"`
-	// DeviceID 手机设备号(由企业微信在安装时随机生成，删除重装会改变，升级不受影响)
-	DeviceID string `json:"DeviceId,omitempty"`
-}

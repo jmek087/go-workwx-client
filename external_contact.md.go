@@ -493,21 +493,21 @@ type File struct {
 // ExternalContactAddCorpTag 企业客户标签
 type ExternalContactAddCorpTag struct {
 	// Name 标签名称
-	Name string `json:"name,omitempty,omitempty"`
+	Name string `json:"name,omitempty"`
 	// Order 标签排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
-	Order uint32 `json:"order,omitempty,omitempty"`
+	Order uint32 `json:"order,omitempty"`
 }
 
 // ExternalContactAddCorpTagGroup 企业客户标签组
 type ExternalContactAddCorpTagGroup struct {
 	// GroupID 标签组id
-	GroupID string `json:"group_id,omitempty,omitempty"`
+	GroupID string `json:"group_id,omitempty"`
 	// GroupName 标签组名称
-	GroupName string `json:"group_name,omitempty,omitempty"`
+	GroupName string `json:"group_name,omitempty"`
 	// Order 标签组排序的次序值，order值大的排序靠前。有效的值范围是[0, 2^32)
-	Order uint32 `json:"order,omitempty,omitempty"`
+	Order uint32 `json:"order,omitempty"`
 	// Tag 标签组内的标签列表
-	Tag []ExternalContactAddCorpTag `json:"tag,omitempty,omitempty"`
+	Tag []ExternalContactAddCorpTag `json:"tag,omitempty"`
 	// AgentID 授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数
-	AgentID int64 `json:"agentid,omitempty,omitempty"`
+	AgentID int64 `json:"agentid,omitempty"`
 }
