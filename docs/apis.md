@@ -49,13 +49,13 @@ Name|Request Type|Response Type|Access Token|URL|Doc
 
 Name|Request Type|Response Type|Access Token|URL|Doc
 :---|------------|-------------|------------|:--|:--
-`execTagCreate`|TODO|TODO|+|`POST /cgi-bin/tag/create`|[创建标签](https://work.weixin.qq.com/api/doc#90000/90135/90210)
-`execTagUpdate`|TODO|TODO|+|`POST /cgi-bin/tag/update`|[更新标签名字](https://work.weixin.qq.com/api/doc#90000/90135/90211)
-`execTagDelete`|TODO|TODO|+|`GET /cgi-bin/tag/delete`|[删除标签](https://work.weixin.qq.com/api/doc#90000/90135/90212)
-`execTagListUsers`|TODO|TODO|+|`GET /cgi-bin/tag/get`|[获取标签成员](https://work.weixin.qq.com/api/doc#90000/90135/90213)
-`execTagAddUsers`|TODO|TODO|+|`POST /cgi-bin/tag/addtagusers`|[增加标签成员](https://work.weixin.qq.com/api/doc#90000/90135/90214)
-`execTagDeleteUsers`|TODO|TODO|+|`POST /cgi-bin/tag/deltagusers`|[删除标签成员](https://work.weixin.qq.com/api/doc#90000/90135/90215)
-`execTagList`|TODO|TODO|+|`GET /cgi-bin/tag/list`|[获取标签列表](https://work.weixin.qq.com/api/doc#90000/90135/90216)
+`execTagCreate`|`reqTagCreate`|`respTagCreate`|+|`POST /cgi-bin/tag/create`|[创建标签](https://work.weixin.qq.com/api/doc#90000/90135/90210)
+`execTagUpdate`|`reqTagUpdate`|`respTagUpdate`|+|`POST /cgi-bin/tag/update`|[更新标签名字](https://work.weixin.qq.com/api/doc#90000/90135/90211)
+`execTagDelete`|`reqTagDelete`|`respTagDelete`|+|`GET /cgi-bin/tag/delete`|[删除标签](https://work.weixin.qq.com/api/doc#90000/90135/90212)
+`execTagListUsers`|`reqTagListUsers`|`respTagListUsers`|+|`GET /cgi-bin/tag/get`|[获取标签成员](https://work.weixin.qq.com/api/doc#90000/90135/90213)
+`execTagAddUsers`|`reqTagAddUsers`|`respTagAddUsers`|+|`POST /cgi-bin/tag/addtagusers`|[增加标签成员](https://work.weixin.qq.com/api/doc#90000/90135/90214)
+`execTagDeleteUsers`|`reqTagDeleteUsers`|`respTagDeleteUsers`|+|`POST /cgi-bin/tag/deltagusers`|[删除标签成员](https://work.weixin.qq.com/api/doc#90000/90135/90215)
+`execTagList`|`reqTagList`|`respTagList`|+|`GET /cgi-bin/tag/list`|[获取标签列表](https://work.weixin.qq.com/api/doc#90000/90135/90216)
 
 # 异步批量接口
 

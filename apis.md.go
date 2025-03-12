@@ -200,6 +200,83 @@ func (c *WorkwxApp) execDeptSimpleList(req reqDeptSimpleList) (respDeptSimpleLis
 	return resp, nil
 }
 
+// execTagCreate 创建标签
+func (c *WorkwxApp) execTagCreate(req reqTagCreate) (respTagCreate, error) {
+	var resp respTagCreate
+	err := executeQyapiJSONPost(c, "/cgi-bin/tag/create", req, &resp, true)
+	if err != nil {
+		return respTagCreate{}, err
+	}
+
+	return resp, nil
+}
+
+// execTagUpdate 更新标签名字
+func (c *WorkwxApp) execTagUpdate(req reqTagUpdate) (respTagUpdate, error) {
+	var resp respTagUpdate
+	err := executeQyapiJSONPost(c, "/cgi-bin/tag/update", req, &resp, true)
+	if err != nil {
+		return respTagUpdate{}, err
+	}
+
+	return resp, nil
+}
+
+// execTagDelete 删除标签
+func (c *WorkwxApp) execTagDelete(req reqTagDelete) (respTagDelete, error) {
+	var resp respTagDelete
+	err := executeQyapiGet(c, "/cgi-bin/tag/delete", req, &resp, true)
+	if err != nil {
+		return respTagDelete{}, err
+	}
+
+	return resp, nil
+}
+
+// execTagListUsers 获取标签成员
+func (c *WorkwxApp) execTagListUsers(req reqTagListUsers) (respTagListUsers, error) {
+	var resp respTagListUsers
+	err := executeQyapiGet(c, "/cgi-bin/tag/get", req, &resp, true)
+	if err != nil {
+		return respTagListUsers{}, err
+	}
+
+	return resp, nil
+}
+
+// execTagAddUsers 增加标签成员
+func (c *WorkwxApp) execTagAddUsers(req reqTagAddUsers) (respTagAddUsers, error) {
+	var resp respTagAddUsers
+	err := executeQyapiJSONPost(c, "/cgi-bin/tag/addtagusers", req, &resp, true)
+	if err != nil {
+		return respTagAddUsers{}, err
+	}
+
+	return resp, nil
+}
+
+// execTagDeleteUsers 删除标签成员
+func (c *WorkwxApp) execTagDeleteUsers(req reqTagDeleteUsers) (respTagDeleteUsers, error) {
+	var resp respTagDeleteUsers
+	err := executeQyapiJSONPost(c, "/cgi-bin/tag/deltagusers", req, &resp, true)
+	if err != nil {
+		return respTagDeleteUsers{}, err
+	}
+
+	return resp, nil
+}
+
+// execTagList 获取标签列表
+func (c *WorkwxApp) execTagList(req reqTagList) (respTagList, error) {
+	var resp respTagList
+	err := executeQyapiGet(c, "/cgi-bin/tag/list", req, &resp, true)
+	if err != nil {
+		return respTagList{}, err
+	}
+
+	return resp, nil
+}
+
 // execUserInfoGet 获取访问用户身份
 func (c *WorkwxApp) execUserInfoGet(req reqUserInfoGet) (respUserInfoGet, error) {
 	var resp respUserInfoGet

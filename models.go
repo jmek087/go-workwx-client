@@ -2013,3 +2013,127 @@ func (x reqOASetOneUserVacationQuota) intoBody() ([]byte, error) {
 type respOASetOneUserVacationQuota struct {
 	respCommon
 }
+
+// reqTagCreate 创建标签请求
+type reqTagCreate struct {
+	TagName string `json:"tagname"`
+}
+
+var _ bodyer = reqTagCreate{}
+
+func (x reqTagCreate) intoBody() ([]byte, error) {
+	return marshalIntoJSONBody(x)
+}
+
+// respTagCreate 创建标签响应
+type respTagCreate struct {
+	respCommon
+	TagID int `json:"tagid"`
+}
+
+// reqTagUpdate 更新标签名字请求
+type reqTagUpdate struct {
+	TagID   int    `json:"tagid"`
+	TagName string `json:"tagname"`
+}
+
+var _ bodyer = reqTagUpdate{}
+
+func (x reqTagUpdate) intoBody() ([]byte, error) {
+	return marshalIntoJSONBody(x)
+}
+
+// respTagUpdate 更新标签名字响应
+type respTagUpdate struct {
+	respCommon
+}
+
+// reqTagDelete 删除标签请求
+type reqTagDelete struct {
+	TagID int
+}
+
+var _ urlValuer = reqTagDelete{}
+
+func (x reqTagDelete) intoURLValues() url.Values {
+	return url.Values{
+		"tagid": {strconv.Itoa(x.TagID)},
+	}
+}
+
+// respTagDelete 删除标签响应
+type respTagDelete struct {
+	respCommon
+}
+
+// reqTagListUsers 获取标签成员请求
+type reqTagListUsers struct {
+	TagID int
+}
+
+var _ urlValuer = reqTagListUsers{}
+
+func (x reqTagListUsers) intoURLValues() url.Values {
+	return url.Values{
+		"tagid": {strconv.Itoa(x.TagID)},
+	}
+}
+
+// respTagListUsers 获取标签成员响应
+type respTagListUsers struct {
+	respCommon
+	UserList []TagUser `json:"userlist"`
+}
+
+// reqTagAddUsers 增加标签成员请求
+type reqTagAddUsers struct {
+	TagID     int      `json:"tagid"`
+	UserList  []string `json:"userlist"`
+	PartyList []int    `json:"partylist"`
+}
+
+var _ bodyer = reqTagAddUsers{}
+
+func (x reqTagAddUsers) intoBody() ([]byte, error) {
+	return marshalIntoJSONBody(x)
+}
+
+// respTagAddUsers 增加标签成员响应
+type respTagAddUsers struct {
+	respCommon
+	InvalidList string `json:"invalidlist"`
+}
+
+// reqTagDeleteUsers 删除标签成员请求
+type reqTagDeleteUsers struct {
+	TagID     int      `json:"tagid"`
+	UserList  []string `json:"userlist"`
+	PartyList []int    `json:"partylist"`
+}
+
+var _ bodyer = reqTagDeleteUsers{}
+
+func (x reqTagDeleteUsers) intoBody() ([]byte, error) {
+	return marshalIntoJSONBody(x)
+}
+
+// respTagDeleteUsers 删除标签成员响应
+type respTagDeleteUsers struct {
+	respCommon
+	InvalidList string `json:"invalidlist"`
+}
+
+// reqTagList 获取标签列表请求
+type reqTagList struct{}
+
+var _ urlValuer = reqTagList{}
+
+func (x reqTagList) intoURLValues() url.Values {
+	return url.Values{}
+}
+
+// respTagList 获取标签列表响应
+type respTagList struct {
+	respCommon
+	TagList []Tag `json:"taglist"`
+}
