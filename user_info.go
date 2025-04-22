@@ -28,21 +28,21 @@ type ExtAttrs struct {
 type UserDetail struct {
 	UserID         string    `json:"userid"`
 	Name           string    `json:"name,omitempty"`
-	DeptIDs        []int64   `json:"department"`
-	DeptOrder      []uint32  `json:"order"`
-	Position       string    `json:"position"`
+	DeptIDs        []int64   `json:"department,omitempty"`
+	DeptOrder      []uint32  `json:"order,omitempty"`
+	Position       string    `json:"position,omitempty"`
 	Mobile         string    `json:"mobile,omitempty"`
 	Gender         string    `json:"gender,omitempty"`
 	Email          string    `json:"email,omitempty"`
-	IsLeaderInDept []int     `json:"is_leader_in_dept"`
-	AvatarURL      string    `json:"avatar"`
-	Telephone      string    `json:"telephone"`
-	IsEnabled      int       `json:"enable"`
-	Alias          string    `json:"alias"`
-	Status         int       `json:"status"`
-	QRCodeURL      string    `json:"qr_code"`
-	MainDepartment int64     `json:"main_department"`
-	DirectLeader   []string  `json:"direct_leader"`
+	IsLeaderInDept []int     `json:"is_leader_in_dept,omitempty"`
+	AvatarURL      string    `json:"avatar,omitempty"`
+	Telephone      string    `json:"telephone,omitempty"`
+	IsEnabled      int       `json:"enable,omitempty"`
+	Alias          string    `json:"alias,omitempty"`
+	Status         int       `json:"status,omitempty"`
+	QRCodeURL      string    `json:"qr_code,omitempty"`
+	MainDepartment int64     `json:"main_department,omitempty"`
+	DirectLeader   []string  `json:"direct_leader,omitempty"`
 	ExtAttr        *ExtAttrs `json:"extattr,omitempty"`
 	// TODO: external_profile external_position
 }
