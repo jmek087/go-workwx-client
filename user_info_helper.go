@@ -101,7 +101,7 @@ func (x UserDetail) intoUserInfo() (UserInfo, error) {
 		Email:          x.Email,
 		AvatarURL:      x.AvatarURL,
 		Telephone:      x.Telephone,
-		IsEnabled:      x.IsEnabled != 0,
+		IsEnabled:      x.IsEnabled != nil && *x.IsEnabled != 0,
 		Alias:          x.Alias,
 		Status:         UserStatus(x.Status),
 		QRCodeURL:      x.QRCodeURL,
@@ -109,4 +109,21 @@ func (x UserDetail) intoUserInfo() (UserInfo, error) {
 		DirectLeader:   x.DirectLeader,
 		ExtAttr:        extAttrs,
 	}, nil
+}
+
+// EnabledPtr 返回指向1的指针，用于设置用户为启用状态
+func EnabledPtr() *int {
+	v := 1
+	return &v
+}
+
+// DisabledPtr 返回指向0的指针，用于设置用户为禁用状态
+func DisabledPtr() *int {
+	v := 0
+	return &v
+}
+
+// IntPtr 返回指向给定整数值的指针，用于设置IsEnabled字段
+func IntPtr(v int) *int {
+	return &v
 }

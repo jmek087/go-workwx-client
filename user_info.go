@@ -37,7 +37,7 @@ type UserDetail struct {
 	IsLeaderInDept []int     `json:"is_leader_in_dept,omitempty"`
 	AvatarURL      string    `json:"avatar,omitempty"`
 	Telephone      string    `json:"telephone,omitempty"`
-	IsEnabled      int       `json:"enable,omitempty"`
+	IsEnabled      *int      `json:"enable,omitempty"`
 	Alias          string    `json:"alias,omitempty"`
 	Status         int       `json:"status,omitempty"`
 	QRCodeURL      string    `json:"qr_code,omitempty"`
