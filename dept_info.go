@@ -11,6 +11,28 @@ func (c *WorkwxApp) CreateDept(deptInfo *DeptInfo) (deptID int64, err error) {
 	return resp.ID, nil
 }
 
+// UpdateDept 更新部门
+func (c *WorkwxApp) UpdateDept(deptInfo *DeptInfo) error {
+	_, err := c.execDeptUpdate(reqDeptUpdate{
+		DeptInfo: deptInfo,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteDept 删除部门
+func (c *WorkwxApp) DeleteDept(id int64) error {
+	_, err := c.execDeptDelete(reqDeptDelete{
+		ID: id,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // ListAllDepts 获取全量组织架构。
 func (c *WorkwxApp) ListAllDepts() ([]*DeptInfo, error) {
 	resp, err := c.execDeptList(reqDeptList{

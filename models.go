@@ -394,6 +394,40 @@ type respDeptCreate struct {
 	ID int64 `json:"id"`
 }
 
+// reqDeptUpdate 更新部门
+type reqDeptUpdate struct {
+	DeptInfo *DeptInfo
+}
+
+var _ bodyer = reqDeptUpdate{}
+
+func (x reqDeptUpdate) intoBody() ([]byte, error) {
+	return marshalIntoJSONBody(x.DeptInfo)
+}
+
+// respDeptUpdate 更新部门响应
+type respDeptUpdate struct {
+	respCommon
+}
+
+// reqDeptDelete 删除部门
+type reqDeptDelete struct {
+	ID int64
+}
+
+var _ urlValuer = reqDeptDelete{}
+
+func (x reqDeptDelete) intoURLValues() url.Values {
+	return url.Values{
+		"id": {strconv.FormatInt(x.ID, 10)},
+	}
+}
+
+// respDeptDelete 删除部门响应
+type respDeptDelete struct {
+	respCommon
+}
+
 // reqDeptList 获取部门列表
 // 从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过「获取部门ID列表」接口获取部门ID列表。查看调整详情。
 // https://developer.work.weixin.qq.com/document/path/96079

@@ -178,6 +178,28 @@ func (c *WorkwxApp) execDeptCreate(req reqDeptCreate) (respDeptCreate, error) {
 	return resp, nil
 }
 
+// execDeptUpdate 更新部门
+func (c *WorkwxApp) execDeptUpdate(req reqDeptUpdate) (respDeptUpdate, error) {
+	var resp respDeptUpdate
+	err := executeQyapiJSONPost(c, "/cgi-bin/department/update", req, &resp, true)
+	if err != nil {
+		return respDeptUpdate{}, err
+	}
+
+	return resp, nil
+}
+
+// execDeptDelete 删除部门
+func (c *WorkwxApp) execDeptDelete(req reqDeptDelete) (respDeptDelete, error) {
+	var resp respDeptDelete
+	err := executeQyapiGet(c, "/cgi-bin/department/delete", req, &resp, true)
+	if err != nil {
+		return respDeptDelete{}, err
+	}
+
+	return resp, nil
+}
+
 // execDeptList 获取部门列表
 func (c *WorkwxApp) execDeptList(req reqDeptList) (respDeptList, error) {
 	var resp respDeptList

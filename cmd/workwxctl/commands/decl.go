@@ -60,6 +60,67 @@ func InitApp() *cli.App {
 				Action: cmdDeptList,
 			},
 			{
+				Name:   "dept-create",
+				Usage:  "创建部门",
+				Action: cmdDeptCreate,
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:  flagName,
+						Usage: "部门名称",
+					},
+					&cli.StringFlag{
+						Name:  flagNameEn,
+						Usage: "部门英文名称",
+					},
+					&cli.Int64Flag{
+						Name:  flagParentID,
+						Usage: "父部门ID，默认1",
+					},
+					&cli.UintFlag{
+						Name:  flagOrder,
+						Usage: "部门排序值",
+					},
+				},
+			},
+			{
+				Name:   "dept-update",
+				Usage:  "更新部门",
+				Action: cmdDeptUpdate,
+				Flags: []cli.Flag{
+					&cli.Int64Flag{
+						Name:  flagDeptID,
+						Usage: "部门ID",
+					},
+					&cli.StringFlag{
+						Name:  flagName,
+						Usage: "部门名称",
+					},
+					&cli.StringFlag{
+						Name:  flagNameEn,
+						Usage: "部门英文名称",
+					},
+					&cli.Int64Flag{
+						Name:  flagParentID,
+						Usage: "父部门ID",
+					},
+					&cli.UintFlag{
+						Name:  flagOrder,
+						Usage: "部门排序值",
+					},
+				},
+			},
+			{
+				Name:   "dept-delete",
+				Usage:  "删除部门",
+				Action: cmdDeptDelete,
+				Flags: []cli.Flag{
+					&cli.Int64Flag{
+						Name:  flagDeptID,
+						Usage: "部门ID",
+					},
+				},
+			},
+			{
 				Name:   "appchat-create",
 				Usage:  "创建群聊会话",
 				Action: cmdAppchatCreate,

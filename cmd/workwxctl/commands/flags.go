@@ -50,6 +50,11 @@ const (
 	flagMentionUser        = "mention-user"
 	flagMentionMobile      = "mention-mobile"
 	flagMentionMobileShort = "m"
+
+	flagDeptID   = "dept-id"
+	flagParentID = "parent-id"
+	flagOrder    = "order"
+	flagNameEn   = "name-en"
 )
 
 type cliOptions struct {
